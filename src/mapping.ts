@@ -29,8 +29,8 @@ function trackCount(transfer: Transfer):void {
   countTxOut.save();
 
   let countTxIn = getCount(transfer.to);
-  countTxOut.transfersIn++;
-  countTxOut.lastTx = transfer.timestamp;
+  countTxIn.transfersIn++;
+  countTxIn.lastTx = transfer.timestamp;
   countTxIn.save();
 }
 
