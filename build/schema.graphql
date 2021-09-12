@@ -9,7 +9,6 @@ type Transfer @entity {
 
 type Count @entity {
   id: ID!,
-  address: Bytes!,
   transfersOut: Int!
   transfersIn: Int!,
   lastTx: BigInt!

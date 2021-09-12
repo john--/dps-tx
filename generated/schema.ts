@@ -118,15 +118,6 @@ export class Count extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get address(): Bytes {
-    let value = this.get("address");
-    return value.toBytes();
-  }
-
-  set address(value: Bytes) {
-    this.set("address", Value.fromBytes(value));
-  }
-
   get transfersOut(): i32 {
     let value = this.get("transfersOut");
     return value.toI32();
