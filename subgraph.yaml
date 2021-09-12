@@ -1,0 +1,27 @@
+specVersion: 0.0.2
+description: Deepspace Indexer
+repository: https://github.com/john--
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Deepspace
+    network: bsc
+    source:
+      address: '0xf275e1AC303a4C9D987a2c48b8E555A77FeC3F1C'
+      abi: Deepspace
+      startBlock: 9673998
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+        - Count
+      abis:
+        - name: Deepspace
+          file: ./abis/Deepspace.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts

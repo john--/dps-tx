@@ -1,0 +1,15 @@
+type Transfer @entity {
+  id: ID!,
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!,
+  blockNumber: BigInt!
+}
+
+type Count @entity {
+  id: ID!,
+  address: Bytes!,
+  transfersOut: Int!
+  transfersIn: Int!,
+}
+
