@@ -118,22 +118,40 @@ export class Count extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get transfersOut(): i32 {
-    let value = this.get("transfersOut");
+  get numTransfersOut(): i32 {
+    let value = this.get("numTransfersOut");
     return value.toI32();
   }
 
-  set transfersOut(value: i32) {
-    this.set("transfersOut", Value.fromI32(value));
+  set numTransfersOut(value: i32) {
+    this.set("numTransfersOut", Value.fromI32(value));
   }
 
-  get transfersIn(): i32 {
-    let value = this.get("transfersIn");
+  get numTransfersIn(): i32 {
+    let value = this.get("numTransfersIn");
     return value.toI32();
   }
 
-  set transfersIn(value: i32) {
-    this.set("transfersIn", Value.fromI32(value));
+  set numTransfersIn(value: i32) {
+    this.set("numTransfersIn", Value.fromI32(value));
+  }
+
+  get totalIn(): BigInt {
+    let value = this.get("totalIn");
+    return value.toBigInt();
+  }
+
+  set totalIn(value: BigInt) {
+    this.set("totalIn", Value.fromBigInt(value));
+  }
+
+  get totalOut(): BigInt {
+    let value = this.get("totalOut");
+    return value.toBigInt();
+  }
+
+  set totalOut(value: BigInt) {
+    this.set("totalOut", Value.fromBigInt(value));
   }
 
   get lastTx(): BigInt {

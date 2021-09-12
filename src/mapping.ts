@@ -1,6 +1,12 @@
 import { Deepspace, Transfer as TransferEvent } from '../generated/Deepspace/Deepspace';
 import { Transfer, Count } from '../generated/schema';
-import { BigInt, Bytes, log } from '@graphprotocol/graph-ts';
+import { BigInt, Bytes, Address, log } from '@graphprotocol/graph-ts';
+
+const ignoredAddresses: Array<string> = 
+[
+  '0x0000000000000000000000000000000000000000',
+  '0x000000000000000000000000000000000000dead'
+];
 
 export function handleTransfer(event: TransferEvent): void {
 
@@ -23,15 +29,22 @@ export function handleTransfer(event: TransferEvent): void {
 }
 
 function trackCount(transfer: Transfer):void {
-  let countTxOut = getCount(transfer.from);
-  countTxOut.transfersOut++;
-  countTxOut.lastTx = transfer.timestamp;
-  countTxOut.save();
 
-  let countTxIn = getCount(transfer.to);
-  countTxIn.transfersIn++;
-  countTxIn.lastTx = transfer.timestamp;
-  countTxIn.save();
+  if (!isAddressIgnored(transfer.from)) {
+    let count = getCount(transfer.from);
+    count.numTransfersOut++;
+    count.totalOut = count.totalOut.plus(transfer.value);
+    count.lastTx = transfer.timestamp;
+    count.save();
+  }
+
+  if (!isAddressIgnored(transfer.to)) {
+    let count = getCount(transfer.to);
+    count.numTransfersIn++;
+    count.totalIn = count.totalIn.plus(transfer.value);
+    count.lastTx = transfer.timestamp;
+    count.save();
+  }
 }
 
 function getCount(address: Bytes): Count {
@@ -41,11 +54,17 @@ function getCount(address: Bytes): Count {
   let count = Count.load(countId);
   if (count === null) {
     count = new Count(countId);
-    count.transfersIn = 0;
-    count.transfersOut = 0;
+    count.numTransfersIn = 0;
+    count.numTransfersOut = 0;
+    count.totalIn = new BigInt(0);
+    count.totalOut = new BigInt(0);
     count.lastTx = new BigInt(0);
   }
   return <Count>count;
+}
+
+function isAddressIgnored(address: Bytes):boolean {
+  return ignoredAddresses.includes(address.toHexString());
 }
 
 
