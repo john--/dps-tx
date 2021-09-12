@@ -12,6 +12,7 @@ export function handleTransfer(event: TransferEvent): void {
   transfer.to = event.params.to;
   transfer.value = event.params.value;
   transfer.blockNumber = event.block.number;
+  transfer.timestamp = event.block.timestamp;
 
   // Save the entity to the store
   transfer.save()
@@ -22,10 +23,12 @@ export function handleTransfer(event: TransferEvent): void {
 function trackCount(transfer: Transfer):void {
   let countTxOut = getCount(transfer.from);
   countTxOut.transfersOut++;
+  countTxOut.lastTx = transfer.timestamp;
   countTxOut.save();
 
   let countTxIn = getCount(transfer.to);
-  countTxIn.transfersIn++;
+  countTxOut.transfersIn++;
+  countTxOut.lastTx = transfer.timestamp;
   countTxIn.save();
 }
 

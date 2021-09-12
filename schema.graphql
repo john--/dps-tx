@@ -3,7 +3,8 @@ type Transfer @entity {
   from: Bytes!
   to: Bytes!
   value: BigInt!,
-  blockNumber: BigInt!
+  blockNumber: BigInt!,
+  timestamp: BigInt!
 }
 
 type Count @entity {
@@ -11,5 +12,6 @@ type Count @entity {
   address: Bytes!,
   transfersOut: Int!
   transfersIn: Int!,
+  lastTx: BigInt!
 }
 

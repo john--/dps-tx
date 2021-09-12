@@ -77,6 +77,15 @@ export class Transfer extends Entity {
   set blockNumber(value: BigInt) {
     this.set("blockNumber", Value.fromBigInt(value));
   }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class Count extends Entity {
@@ -134,5 +143,14 @@ export class Count extends Entity {
 
   set transfersIn(value: i32) {
     this.set("transfersIn", Value.fromI32(value));
+  }
+
+  get lastTx(): BigInt {
+    let value = this.get("lastTx");
+    return value.toBigInt();
+  }
+
+  set lastTx(value: BigInt) {
+    this.set("lastTx", Value.fromBigInt(value));
   }
 }
