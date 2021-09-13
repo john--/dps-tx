@@ -31,23 +31,23 @@ export function handleTransfer(event: TransferEvent): void {
 function trackCount(transfer: Transfer):void {
 
   if (!isAddressIgnored(transfer.from)) {
-    let count = getCount(transfer.from);
+    let count = getCount(transfer.from, transfer.timestamp);
     count.numTransfersOut++;
     count.totalOut = count.totalOut.plus(transfer.value);
-    count.lastTx = transfer.timestamp;
+    count.lastTxTimestamp = transfer.timestamp;
     count.save();
   }
 
   if (!isAddressIgnored(transfer.to)) {
-    let count = getCount(transfer.to);
+    let count = getCount(transfer.to, transfer.timestamp);
     count.numTransfersIn++;
     count.totalIn = count.totalIn.plus(transfer.value);
-    count.lastTx = transfer.timestamp;
+    count.lastTxTimestamp = transfer.timestamp;
     count.save();
   }
 }
 
-function getCount(address: Bytes): Count {
+function getCount(address: Bytes, timestamp: BigInt): Count {
 
   let countId = address.toHexString();
 
@@ -58,7 +58,8 @@ function getCount(address: Bytes): Count {
     count.numTransfersOut = 0;
     count.totalIn = new BigInt(0);
     count.totalOut = new BigInt(0);
-    count.lastTx = new BigInt(0);
+    count.lastTxTimestamp = new BigInt(0);
+    count.firstTxTimestamp = timestamp;
   }
   return <Count>count;
 }

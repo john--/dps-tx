@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 description: Deepspace Indexer
-repository: https://github.com/john--
+repository: https://github.com/john--/dps-tx
 schema:
   file: schema.graphql
 dataSources:

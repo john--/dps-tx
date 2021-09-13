@@ -13,6 +13,7 @@ type Count @entity {
   numTransfersIn: Int!,
   totalIn: BigInt!,
   totalOut: BigInt!,
-  lastTx: BigInt!
+  lastTxTimestamp: BigInt!,
+  firstTxTimestamp: BigInt!
 }
 

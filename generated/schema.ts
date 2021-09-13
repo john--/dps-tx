@@ -154,12 +154,21 @@ export class Count extends Entity {
     this.set("totalOut", Value.fromBigInt(value));
   }
 
-  get lastTx(): BigInt {
-    let value = this.get("lastTx");
+  get lastTxTimestamp(): BigInt {
+    let value = this.get("lastTxTimestamp");
     return value.toBigInt();
   }
 
-  set lastTx(value: BigInt) {
-    this.set("lastTx", Value.fromBigInt(value));
+  set lastTxTimestamp(value: BigInt) {
+    this.set("lastTxTimestamp", Value.fromBigInt(value));
+  }
+
+  get firstTxTimestamp(): BigInt {
+    let value = this.get("firstTxTimestamp");
+    return value.toBigInt();
+  }
+
+  set firstTxTimestamp(value: BigInt) {
+    this.set("firstTxTimestamp", Value.fromBigInt(value));
   }
 }
